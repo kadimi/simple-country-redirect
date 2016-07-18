@@ -18,7 +18,7 @@ add_action( 'wp', function() {
         $redirect_to = $titan->getOption( 'redirect_to' );
 
         // Should we redirect?
-        $must_redirect = in_array( $country, $redirected_countries );
+        $must_redirect = is_array( $redirected_countries ) && in_array( $country, $redirected_countries );
 
         // Redirect when applicable
         if ( $must_redirect ) {
