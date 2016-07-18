@@ -9,7 +9,7 @@ add_action( 'wp', function() {
     if (  $is_frontend ) {
 
         $country = strtoupper( do_shortcode( '[geoip_detect2 property="country.isoCode"]' ) );
-        if ( 2 !== strlen($country) ) {
+        if ( 2 !== strlen( $country ) ) {
             $country = 'XX';
         }
 
