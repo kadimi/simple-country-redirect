@@ -1,14 +1,21 @@
 <?php
 
-add_action( 'admin_enqueue_scripts', function($hook) {
+add_action( 'admin_enqueue_scripts', function( $hook ) {
 
-	if ( 'settings_page_simple_country_redirect' != $hook ) {
+	global $simple_country_redirect ;
+
+	// Exit if not in this plugin settings page.
+	$settings_page_hook = 'settings_page_' . $simple_country_redirect->plugin_slug; 
+	if ( $settings_page_hook != $hook ) {
 		return;
 	}
 
-	wp_enqueue_script( 'chosen', 'https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.1/chosen.jquery.min.js', array( 'jquery' ), null, true );
-	wp_enqueue_style( 'chosen', 'https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.1/chosen.min.css' );
+	// Enqueue Chosen
+	$assets_dir_url = $simple_country_redirect->plugin_dir_url . 'public/';
+	wp_enqueue_script( 'chosen', $assets_dir_url . 'js/chosen.jquery.min.js', [ 'jquery' ] , '1.6.1', true );
+	wp_enqueue_style( 'chosen', $assets_dir_url . 'css/chosen.min.css', null, '1.6.1' );
 
+	// Add JS to footer
 	add_action( 'admin_footer', function() {
 		?>
 		<script>
