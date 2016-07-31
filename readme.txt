@@ -21,9 +21,9 @@ Redirect website visitors from one or more countries to a URL of your choice.
 
 == Changelog ==
 = 1.2.0 =
-* Add option to exclude posts of any type.
-* Exclude feeds from redirections.
+* Add option to exclude posts of any type
+* Exclude feeds from redirections
 
 = 1.0.0 =
-* Initial release.
+* Initial release
 
