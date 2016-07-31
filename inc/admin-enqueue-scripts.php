@@ -20,7 +20,42 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
 		?>
 		<script>
 			jQuery( document ).ready( function( $ ) {
-				$( '.tf-select select' ).chosen();
+
+				var $multichecks = $('.tf-multicheck-posts');
+
+				$multichecks.each( function() {
+
+					var $this = $( this );
+					var $fieldset = $this.children( 'fieldset' );
+					var $labels = $fieldset.children( 'label' );
+					var name = $( 'input:eq(0)', $this ).prop( 'name' );
+					var checkboxes = [];
+					var $select = $( '<select name="' + name + '" multiple></select>' );
+
+					for ( var i = 0; i < $labels.length; i++ ) {
+						checkboxes.push( {
+							text: $( 'label', $this ).eq(i).text(),
+							value: $( 'label', $this ).eq(i).find( 'input' ).val(),
+							checked: $( 'label', $this ).eq(i).find( 'input' ).is( ':checked' )
+						} );
+					}
+
+					$.each( checkboxes, function( i, v ) {
+						$select.append(
+							'<option value="{{value}}" {{selected}}>{{text}}</option>'
+								.replace( '{{value}}', v.value )
+								.replace( '{{text}}', v.text )
+								.replace( '{{selected}}', v.checked ? 'selected' : '' )
+						);
+					} );
+
+					$labels.remove();
+					$fieldset.find( 'br' ).remove();
+					$fieldset.append( $select );
+
+				} );
+
+				$( '.tf-select, .tf-multicheck-posts' ).find( 'select' ).css( 'width', '100%' ).chosen();
 			} );
 		</script>
 		<?php

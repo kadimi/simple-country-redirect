@@ -3,7 +3,7 @@
  * Plugin Name: Simple Country Redirect
  * Plugin URI: https://github.com/kadimi/simple-country-redirect
  * Description: Simple country based redirection.
- * Version: 1.0.0
+ * Version: 1.2.0
  * Author: Nabil Kadimi
  * Author URI: http://kadimi.com
  * Text Domain: simple-country-redirect
