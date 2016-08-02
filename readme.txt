@@ -20,6 +20,9 @@ Redirect website visitors from one or more countries to a URL of your choice.
 4. Follow the notice to install geo database
 
 == Changelog ==
+= 1.2.1 =
+* Fix support for CPT
+
 = 1.2.0 =
 * Add option to exclude posts of any type
 * Exclude feeds from redirections
