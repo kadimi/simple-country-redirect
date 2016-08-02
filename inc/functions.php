@@ -25,10 +25,11 @@ function current_URL_is_excluded() {
 
     $public_post_types_objects  = get_post_types( [ 'public' => TRUE ], 'objects' );
     $public_post_types_names    = array_keys( $public_post_types_objects );
-    $supported_post_types_names = apply_filters( 'simple_country_redirect_supported_post_types_names', $public_post_types_names );
+    $supported_post_types_names = apply_filters( 'simple_country_redirect_post_types_array', $public_post_types_names );
 
     foreach ($supported_post_types_names as $post_type ) {
-        if ( in_array( $post_ID, $titan->getOption( 'excluded_posts_' . $post_type ) ) ) {
+        $excluded_posts = $titan->getOption( 'excluded_posts_' . $post_type );
+        if ( is_array( $excluded_posts ) && in_array( $post_ID, $excluded_posts ) ) {
            return TRUE; 
         }
     }

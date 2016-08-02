@@ -1,10 +1,6 @@
 <?php 
 
-add_action( 'tf_create_options', function() {
-
-	$public_post_types_objects = get_post_types( [ 'public' => TRUE ], 'objects' );
-	$public_post_types_names = array_keys( $public_post_types_objects );
-	$supported_post_types_names = apply_filters( 'simple_country_redirect_supported_post_types_names', $public_post_types_names );
+add_action( 'init', function() {
 
 	$titan = TitanFramework::getInstance( 'simple_country_redirect' );
 
@@ -40,13 +36,13 @@ add_action( 'tf_create_options', function() {
 		'name' => 'Exclusions',
 	) );
 
-	foreach ( $supported_post_types_names as $post_type ) {
-		$post_type_friendly_name = $public_post_types_objects[ $post_type ]->labels->name;
+	$supported_post_types_names_array =  apply_filters( 'simple_country_redirect_post_types_array', [] );
+	foreach ( $supported_post_types_names_array as $name ) {
 		$tab2->createOption( array(
-			'name' => $post_type_friendly_name,
-			'id' => 'excluded_posts_' . $post_type,
+			'name' => $name[1],
+			'id' => 'excluded_posts_' . $name[0],
 			'type' => 'multicheck-posts',
-			'post_type' => $post_type,
+			'post_type' => $name[0],
 		) );
 	}
 
@@ -54,4 +50,15 @@ add_action( 'tf_create_options', function() {
 		'type' => 'save',
 		'use_reset' => false,
 	) );
+}, 11 );
+
+add_action( 'registered_post_type', function( $post_type ) {
+	add_filter( 'simple_country_redirect_post_types_array', function( $names ) use ( $post_type ) {
+		$post_type_object = get_post_type_object( $post_type );
+		$name = [ $post_type, $post_type_object->labels->name ];
+		if ( $post_type_object->public && ! in_array( $name, $names ) ) {
+			$names[] = [ $post_type, $post_type_object->labels->name ];
+		}
+		return $names;
+	} );
 } );
