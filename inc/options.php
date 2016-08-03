@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 add_action( 'init', function() {
 
@@ -36,7 +36,7 @@ add_action( 'init', function() {
 		'name' => 'Exclusions',
 	) );
 
-	$supported_post_types_names_array =  apply_filters( 'simple_country_redirect_post_types_array', [] );
+	$supported_post_types_names_array = apply_filters( 'simple_country_redirect_post_types_array', [] );
 	foreach ( $supported_post_types_names_array as $name ) {
 		$tab2->createOption( array(
 			'name' => $name[1],

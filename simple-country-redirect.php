@@ -79,8 +79,8 @@ class SimpleCountryRedirect {
 		$this->plugin_slug = self::camel_case_to_snake_case( __CLASS__ );
 		$this->autoload();
 		$this->activate();
-		$this->require_plugin('titan-framework');
-		$this->require_plugin('geoip-detect');
+		$this->require_plugin( 'titan-framework' );
+		$this->require_plugin( 'geoip-detect' );
 		$this->shortcodes();
 	    $this->enqueue_public_assets();
 	}
@@ -176,7 +176,7 @@ class SimpleCountryRedirect {
 	static function camel_case_to_snake_case( $str ) {
 		preg_match_all( '!([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)!', $str, $matches );
 		foreach ( $matches[0] as &$match ) {
-			if ( strtoupper( $match ) == $match ) {
+			if ( strtoupper( $match ) === $match ) {
 				$match = strtolower( $match );
 			} else {
 				$match = lcfirst( $match );
@@ -191,7 +191,7 @@ class SimpleCountryRedirect {
 	 * @param  string $time Time.
 	 * @return int          Seconds to time.
 	 */
-	static function in( $time ) {
+	static function in( string $time ) {
 		return strftime( $time ) - time();
 	}
 }

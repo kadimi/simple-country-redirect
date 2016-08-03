@@ -5,7 +5,7 @@ add_action( 'admin_enqueue_scripts', function( $hook ) {
 	global $simple_country_redirect ;
 
 	// Exit if not in this plugin settings page.
-	$settings_page_hook = 'settings_page_' . $simple_country_redirect->plugin_slug; 
+	$settings_page_hook = 'settings_page_' . $simple_country_redirect->plugin_slug;
 	if ( $settings_page_hook != $hook ) {
 		return;
 	}
